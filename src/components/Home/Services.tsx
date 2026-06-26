@@ -99,7 +99,7 @@ function ServiceGroup({
         <h3 className="text-2xl font-bold text-ink">{heading}</h3>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(({ icon: Icon, iconBg, iconColor, title, desc }) => (
           <div
             key={title}

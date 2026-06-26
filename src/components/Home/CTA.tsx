@@ -1,6 +1,6 @@
 import { ArrowRight, Package } from 'lucide-react'
 import MaxContainer from '../layout/MaxContainer'
-import { CTAButton } from '../ui'
+import { CTAButton } from '../form'
 import ctaRoads from '../../assets/cta-roads.png'
 
 export default function CTA() {
@@ -15,8 +15,8 @@ export default function CTA() {
           className="pointer-events-none absolute inset-y-0 right-0 h-full w-auto select-none object-cover object-right"
         />
 
-        <div className="relative max-w-[520px]">
-          <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl md:leading-[1.25]">
+        <div className="relative max-w-130">
+          <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl md:leading-tight">
             Ready to Experience Seamless Movement?
           </h2>
           <p className="mt-4 text-base text-white/90">

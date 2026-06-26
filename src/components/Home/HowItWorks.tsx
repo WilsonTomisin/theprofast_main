@@ -57,7 +57,7 @@ export default function HowItWorks() {
             <h2 className="text-3xl font-bold text-ink md:text-5xl md:leading-tight">
               Simple Steps to Get Started
             </h2>
-            <p className="mx-auto mt-2 max-w-[533px] text-lg text-body md:text-xl">
+            <p className="mx-auto mt-2 max-w-133.25 text-lg text-body md:text-xl">
               Getting started with theprofast is quick and easy, whether you need a ride or want to
               send cargo.
             </p>
@@ -68,7 +68,7 @@ export default function HowItWorks() {
           {steps.map(({ n, color, iconBg, icon: Icon, title, desc }) => (
             <div
               key={n}
-              className="flex flex-col items-center gap-4 rounded-[32px] bg-white px-6 py-8 text-center"
+              className="flex flex-col items-center gap-4 rounded-4xl bg-white px-6 py-8 text-center"
             >
               <span
                 className="flex h-12 w-12 items-center justify-center rounded-full text-base font-bold text-white"

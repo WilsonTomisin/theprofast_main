@@ -3,7 +3,7 @@ import { Phone, Mail, ShieldAlert, MapPin, Clock, HelpCircle, Send, ArrowRight }
 import type { LucideIcon } from 'lucide-react'
 import { Link } from 'react-router'
 import { PageHero, MaxContainer } from '../components/layout'
-import { CTAButton } from '../components/ui'
+import { CTAButton, TextField, TextAreaField } from '../components/form'
 import { ROUTES } from '../lib/types/Routes'
 
 type InfoCard = {
@@ -16,9 +16,30 @@ type InfoCard = {
 }
 
 const infoCards: InfoCard[] = [
-  { icon: Phone, iconBg: '#eff8ff', iconColor: '#1570ef', title: 'Call Us', subtitle: 'Speak directly with our team', value: '+234 123 456 7890' },
-  { icon: Mail, iconBg: '#f4f3ff', iconColor: '#7839ee', title: 'Email Us', subtitle: 'Send us a detailed message', value: 'support@theprofast.com' },
-  { icon: ShieldAlert, iconBg: '#fff4ed', iconColor: '#e15100', title: 'Emergency', subtitle: '24/7 emergency hotline', value: '+234 987 654 3210' },
+  {
+    icon: Phone,
+    iconBg: '#eff8ff',
+    iconColor: '#1570ef',
+    title: 'Call Us',
+    subtitle: 'Speak directly with our team',
+    value: '+234 123 456 7890',
+  },
+  {
+    icon: Mail,
+    iconBg: '#f4f3ff',
+    iconColor: '#7839ee',
+    title: 'Email Us',
+    subtitle: 'Send us a detailed message',
+    value: 'support@theprofast.com',
+  },
+  {
+    icon: ShieldAlert,
+    iconBg: '#fff4ed',
+    iconColor: '#e15100',
+    title: 'Emergency',
+    subtitle: '24/7 emergency hotline',
+    value: '+234 987 654 3210',
+  },
 ]
 
 const supportHours = [
@@ -39,13 +60,21 @@ export default function ContactPage() {
       <section className="relative z-10 px-4 md:px-20">
         <MaxContainer className="-mt-12 grid gap-6 md:grid-cols-3">
           {infoCards.map(({ icon: Icon, iconBg, iconColor, title, subtitle, value }) => (
-            <div key={title} className="flex flex-col items-center gap-3 rounded-2xl border border-line/60 bg-white p-6 text-center shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full" style={{ background: iconBg }}>
+            <div
+              key={title}
+              className="flex flex-col items-center gap-3 rounded-2xl border border-line/60 bg-white p-6 text-center shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]"
+            >
+              <span
+                className="flex h-12 w-12 items-center justify-center rounded-full"
+                style={{ background: iconBg }}
+              >
                 <Icon className="h-6 w-6" strokeWidth={1.6} style={{ color: iconColor }} />
               </span>
               <h3 className="text-lg font-bold text-ink">{title}</h3>
               <p className="text-sm text-body">{subtitle}</p>
-              <p className="text-sm font-medium" style={{ color: iconColor }}>{value}</p>
+              <p className="text-sm font-medium" style={{ color: iconColor }}>
+                {value}
+              </p>
             </div>
           ))}
         </MaxContainer>
@@ -62,19 +91,12 @@ export default function ContactPage() {
             </p>
 
             <form className="mt-6 flex flex-col gap-5" onSubmit={e => e.preventDefault()}>
-              <Field label="Full Name" placeholder="Enter your full name" />
+              <TextField label="Full Name" placeholder="Enter your full name" />
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Email Address" type="email" placeholder="Enter your email" />
-                <Field label="Phone Number" type="tel" placeholder="Enter your phone number" />
+                <TextField label="Email Address" type="email" placeholder="Enter your email" />
+                <TextField label="Phone Number" type="tel" placeholder="Enter your phone number" />
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-ink">Message *</label>
-                <textarea
-                  rows={5}
-                  placeholder="Tell us how we can help you..."
-                  className="resize-none rounded-lg border border-[#d5d7da] px-3.5 py-2.5 text-base text-ink placeholder:text-muted focus:border-brand focus:outline-none"
-                />
-              </div>
+              <TextAreaField label="Message *" placeholder="Tell us how we can help you..." />
               <CTAButton
                 type="submit"
                 variant="primary"
@@ -111,7 +133,8 @@ export default function ContactPage() {
 
             <RailCard icon={HelpCircle} iconColor="#7839ee" title="Quick Answers">
               <p className="text-sm text-body">
-                Looking for quick answers? Check out our FAQ section for instant help with common questions.
+                Looking for quick answers? Check out our FAQ section for instant help with common
+                questions.
               </p>
               <Link
                 to={ROUTES.FAQS}
@@ -124,27 +147,6 @@ export default function ContactPage() {
         </MaxContainer>
       </section>
     </main>
-  )
-}
-
-function Field({
-  label,
-  type = 'text',
-  placeholder,
-}: {
-  label: string
-  type?: string
-  placeholder: string
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-ink">{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="h-11 rounded-lg border border-[#d5d7da] px-3.5 text-base text-ink placeholder:text-muted focus:border-brand focus:outline-none"
-      />
-    </div>
   )
 }
 
