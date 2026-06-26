@@ -1,0 +1,27 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Satoshi', system-ui, sans-serif;
+
+  --color-ink: #121212;
+  --color-body: #414141;
+  --color-muted: #606060;
+  --color-line: #e7e7e7;
+  --color-brand: #e15100;
+  --color-brand-soft: #fceee6;
+  --color-badge-bg: #fffcf5;
+  --color-badge-ink: #a03a00;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-body);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
