@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { Link, useNavigate, useSearchParams } from 'react-router'
 import { Phone, User, Mail, Navigation, MapPin, Calendar, Clock, Car, ShieldCheck, Pencil } from 'lucide-react'
 import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton, TextField } from '../components/form'
+import SuccessModal from '../components/ui/SuccessModal'
 import { ROUTES } from '../lib/types/Routes'
 import { airportLabel } from '../lib/data/airports'
 import { getVehicle, naira, SECURITY_PRICE } from '../lib/data/vehicles'
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+
+type FieldKey = 'phone' | 'name' | 'email'
 
 function formatDate(d: string): string {
   if (!d) return '—'
@@ -19,10 +22,13 @@ function formatDate(d: string): string {
 
 export default function CheckoutPage() {
   const [params] = useSearchParams()
+  const navigate = useNavigate()
 
   const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [touched, setTouched] = useState<Record<FieldKey, boolean>>({ phone: false, name: false, email: false })
+  const [success, setSuccess] = useState(false)
 
   const tab = params.get('tab') === 'dropoff' ? 'dropoff' : 'pickup'
   const airport = airportLabel(params.get('airport')) || 'Murtala Muhammed International Airport (Lagos)'
@@ -36,8 +42,15 @@ export default function CheckoutPage() {
   const destination = tab === 'pickup' ? address : airport
   const total = vehicle.price + (hasSecurity ? SECURITY_PRICE : 0)
 
-  const emailError = email.length > 0 && !isEmail(email) ? 'The email address is not correct' : undefined
-  const canSubmit = phone.trim() !== '' && name.trim() !== '' && isEmail(email)
+  // Validation for every field — errors only surface once a field is touched.
+  const errors: Record<FieldKey, string | undefined> = {
+    phone: phone.trim() === '' ? 'Phone number is required' : undefined,
+    name: name.trim() === '' ? 'Name is required' : undefined,
+    email: email.trim() === '' ? 'Email is required' : !isEmail(email) ? 'The email address is not correct' : undefined,
+  }
+  const errorFor = (key: FieldKey) => (touched[key] ? errors[key] : undefined)
+  const markTouched = (key: FieldKey) => setTouched(t => ({ ...t, [key]: true }))
+  const canSubmit = !errors.phone && !errors.name && !errors.email
 
   const editHref = `${ROUTES.VEHICLE_SELECTION}?${params.toString()}`
 
@@ -67,6 +80,8 @@ export default function CheckoutPage() {
                 placeholder="Enter your phone number"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
+                onBlur={() => markTouched('phone')}
+                error={errorFor('phone')}
               />
               <TextField
                 label="Name"
@@ -74,6 +89,8 @@ export default function CheckoutPage() {
                 placeholder="Enter your name"
                 value={name}
                 onChange={e => setName(e.target.value)}
+                onBlur={() => markTouched('name')}
+                error={errorFor('name')}
               />
               <TextField
                 label="Email"
@@ -82,7 +99,8 @@ export default function CheckoutPage() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                error={emailError}
+                onBlur={() => markTouched('email')}
+                error={errorFor('email')}
               />
             </form>
           </div>
@@ -132,6 +150,7 @@ export default function CheckoutPage() {
                 disabled={!canSubmit}
                 onClick={async () => {
                   await new Promise(r => setTimeout(r, 1200))
+                  setSuccess(true)
                 }}
               >
                 Book Ride
@@ -140,6 +159,64 @@ export default function CheckoutPage() {
           </div>
         </MaxContainer>
       </section>
+
+      <SuccessModal
+        open={success}
+        onClose={() => setSuccess(false)}
+        title="Booking Submitted Successfully!"
+        message="Thank you for choosing theprofast. Your ride booking request has been received and payment confirmed."
+        primaryLabel="Back to Home"
+        onPrimary={() => navigate(ROUTES.HOME)}
+        secondaryLabel="Book Another Ride"
+        onSecondary={() => navigate(ROUTES.AIRPORT)}
+        footer={
+          <>
+            <p className="text-sm text-muted">Need help? Contact our support team</p>
+            <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
+              <a href="tel:+2341234567890" className="inline-flex items-center gap-1.5 text-body hover:text-brand">
+                <Phone className="h-4 w-4" strokeWidth={1.6} /> +234 123 456 7890
+              </a>
+              <a href="mailto:support@theprofast.com" className="inline-flex items-center gap-1.5 text-body hover:text-brand">
+                <Mail className="h-4 w-4" strokeWidth={1.6} /> support@theprofast.com
+              </a>
+            </div>
+          </>
+        }
+      >
+        <div className="flex flex-col gap-3 text-left">
+          <div className="flex items-start gap-3 rounded-xl border border-line/60 p-3">
+            <Mail className="mt-0.5 h-5 w-5 shrink-0 text-green-600" strokeWidth={1.6} />
+            <div>
+              <p className="text-sm font-semibold text-ink">Confirmation Email</p>
+              <p className="text-sm text-body">A confirmation email has been sent to {email || 'your email'}</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 rounded-xl border border-line/60 p-3">
+            <Phone className="mt-0.5 h-5 w-5 shrink-0 text-green-600" strokeWidth={1.6} />
+            <div>
+              <p className="text-sm font-semibold text-ink">We'll Contact You</p>
+              <p className="text-sm text-body">
+                Our team will reach out to you within 1 hour for your booking and driver details
+              </p>
+            </div>
+          </div>
+          <div className="rounded-xl bg-blue-50 p-4">
+            <p className="text-sm font-semibold text-ink">What's Next?</p>
+            <ul className="mt-2 flex flex-col gap-1.5 text-sm text-body">
+              {[
+                'Check your email for booking confirmation',
+                'Our team will email you for your booking details',
+                "You'll receive payment receipt",
+                'Track your ride in real-time on the day',
+              ].map(item => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-blue-500">•</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </SuccessModal>
     </main>
   )
 }
