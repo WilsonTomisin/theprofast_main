@@ -1,0 +1,6 @@
+export { default as Landing } from './LandingPage'
+export { default as Contact } from './ContactPage'
+export { default as VehicleSelection } from './VehicleSelectionPage'
+export { default as FAQ } from './FaqPage'
+export { default as Airport } from './AirportPage'
+export { default as Checkout } from './CheckoutPage'

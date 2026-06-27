@@ -23,6 +23,7 @@ export const ROUTES = {
   WESHOP4U: '/services/weshop4u',
 
   // Booking flow
+  AIRPORT: '/airport',
   CAR_RENTALS: '/car-rentals',
   VEHICLE_SELECTION: '/vehicle-selection',
   CHECKOUT: '/checkout',
