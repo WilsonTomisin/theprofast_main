@@ -24,13 +24,15 @@ export const vehicles: Vehicle[] = [
   { id: 'coaster', type: 'Luxury buses', name: 'Luxury Bus — Toyota Coaster', specs: '30 seats · 20 bags · AC · Driver rating 4.5', badges: [], price: 500000, image: vehicle3 },
 ]
 
-/** Resolve a vehicle by id, falling back to the first option. */
-export function getVehicle(id: string | null | undefined): Vehicle {
-  return vehicles.find(v => v.id === id) ?? vehicles[0]
-}
-
 /** Flat add-on price when security personnel is requested. */
 export const SECURITY_PRICE = 100000
 
-/** Format a number as Naira, e.g. ₦ 100,000. */
-export const naira = (n: number) => `₦ ${n.toLocaleString('en-NG')}`
+/** Badge styles keyed by vehicle badge (used in the vehicle list). */
+export const vehicleBadgeStyles: Record<VehicleBadge, string> = {
+  'Most Popular': 'bg-brand-soft text-brand',
+  'Best Value': 'bg-blue-50 text-blue-600',
+  Premium: 'bg-purple-50 text-purple-600',
+}
+
+/** Vehicle type filter options (incl. "All"). */
+export const vehicleFilters: Array<'All' | VehicleType> = ['All', 'Sedan', 'SUV', 'G-wagon', 'Van', 'Luxury buses']

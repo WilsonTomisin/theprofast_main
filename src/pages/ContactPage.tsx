@@ -1,52 +1,11 @@
 import type { ReactNode } from 'react'
-import { Phone, Mail, ShieldAlert, MapPin, Clock, HelpCircle, Send, ArrowRight } from 'lucide-react'
+import { MapPin, Clock, HelpCircle, Send, ArrowRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Link } from 'react-router'
 import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton, TextField, TextAreaField } from '../components/form'
 import { ROUTES } from '../lib/types/Routes'
-
-type InfoCard = {
-  icon: LucideIcon
-  iconBg: string
-  iconColor: string
-  title: string
-  subtitle: string
-  value: string
-}
-
-const infoCards: InfoCard[] = [
-  {
-    icon: Phone,
-    iconBg: '#eff8ff',
-    iconColor: '#1570ef',
-    title: 'Call Us',
-    subtitle: 'Speak directly with our team',
-    value: '+234 123 456 7890',
-  },
-  {
-    icon: Mail,
-    iconBg: '#f4f3ff',
-    iconColor: '#7839ee',
-    title: 'Email Us',
-    subtitle: 'Send us a detailed message',
-    value: 'support@theprofast.com',
-  },
-  {
-    icon: ShieldAlert,
-    iconBg: '#fff4ed',
-    iconColor: '#e15100',
-    title: 'Emergency',
-    subtitle: '24/7 emergency hotline',
-    value: '+234 987 654 3210',
-  },
-]
-
-const supportHours = [
-  { label: 'Phone Support:', value: '24/7' },
-  { label: 'Email Response:', value: 'Within 2 hours' },
-  { label: 'Emergency Line:', value: '24/7' },
-]
+import { contactInfoCards, supportHours } from '../lib/data/contact'
 
 export default function ContactPage() {
   return (
@@ -59,7 +18,7 @@ export default function ContactPage() {
       {/* Info cards */}
       <section className="relative z-10 px-4 md:px-20">
         <MaxContainer className="-mt-12 grid gap-6 md:grid-cols-3">
-          {infoCards.map(({ icon: Icon, iconBg, iconColor, title, subtitle, value }) => (
+          {contactInfoCards.map(({ icon: Icon, iconBg, iconColor, title, subtitle, value }) => (
             <div
               key={title}
               className="flex flex-col items-center gap-3 rounded-2xl border border-line/60 bg-white p-6 text-center shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]"

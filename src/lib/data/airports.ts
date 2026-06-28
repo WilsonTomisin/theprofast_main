@@ -14,9 +14,3 @@ export const airports: Airport[] = [
   { label: 'Minna Airport (Minna)', value: 'MXJ' },
   { label: 'Murtala Muhammed International Airport (Lagos)', value: 'LOS' },
 ]
-
-/** Resolve an airport code to its full label, falling back to the code itself. */
-export function airportLabel(code: string | null | undefined): string {
-  if (!code) return ''
-  return airports.find(a => a.value === code)?.label ?? code
-}

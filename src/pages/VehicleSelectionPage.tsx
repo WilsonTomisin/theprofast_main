@@ -4,16 +4,8 @@ import { MapPin, Navigation, Users, Calendar, Clock, Star, Pencil, ArrowRight } 
 import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton } from '../components/form'
 import { ROUTES } from '../lib/types/Routes'
-import { airportLabel } from '../lib/data/airports'
-import { vehicles, naira, type VehicleType, type VehicleBadge } from '../lib/data/vehicles'
-
-const filters: Array<'All' | VehicleType> = ['All', 'Sedan', 'SUV', 'G-wagon', 'Van', 'Luxury buses']
-
-const badgeStyles: Record<VehicleBadge, string> = {
-  'Most Popular': 'bg-brand-soft text-brand',
-  'Best Value': 'bg-blue-50 text-blue-600',
-  Premium: 'bg-purple-50 text-purple-600',
-}
+import { airportLabel, naira } from '../lib/functions'
+import { vehicles, vehicleFilters, vehicleBadgeStyles, type VehicleType } from '../lib/data/vehicles'
 
 export default function VehicleSelectionPage() {
   const [params] = useSearchParams()
@@ -78,7 +70,7 @@ export default function VehicleSelectionPage() {
               <div className="rounded-2xl border border-line/60 bg-white p-5">
                 <h3 className="text-sm font-bold text-ink">Filter By Vehicle Type</h3>
                 <div className="mt-4 flex flex-col gap-1">
-                  {filters.map(f => (
+                  {vehicleFilters.map(f => (
                     <label key={f} className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 hover:bg-line/10">
                       <input
                         type="radio"
@@ -111,7 +103,7 @@ export default function VehicleSelectionPage() {
                     <p className="text-sm text-body">{v.specs}</p>
                     <div className="flex flex-wrap gap-2">
                       {v.badges.map(badge => (
-                        <span key={badge} className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${badgeStyles[badge]}`}>
+                        <span key={badge} className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${vehicleBadgeStyles[badge]}`}>
                           {badge === 'Most Popular' && <Star className="h-3 w-3" strokeWidth={2} />}
                           {badge}
                         </span>

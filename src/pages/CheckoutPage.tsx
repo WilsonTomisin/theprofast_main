@@ -6,19 +6,10 @@ import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton, TextField } from '../components/form'
 import SuccessModal from '../components/ui/SuccessModal'
 import { ROUTES } from '../lib/types/Routes'
-import { airportLabel } from '../lib/data/airports'
-import { getVehicle, naira, SECURITY_PRICE } from '../lib/data/vehicles'
-
-const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+import { isEmail, formatDate, naira, getVehicle, airportLabel } from '../lib/functions'
+import { SECURITY_PRICE } from '../lib/data/vehicles'
 
 type FieldKey = 'phone' | 'name' | 'email'
-
-function formatDate(d: string): string {
-  if (!d) return '—'
-  const date = new Date(d)
-  if (Number.isNaN(date.getTime())) return d
-  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
-}
 
 export default function CheckoutPage() {
   const [params] = useSearchParams()

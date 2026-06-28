@@ -1,57 +1,7 @@
-import { Car, Plane, Briefcase, Truck, Ship, ShoppingBag } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { Car } from 'lucide-react'
 import Badge from './Badge'
 import MaxContainer from '../layout/MaxContainer'
-
-type Service = { icon: LucideIcon; iconBg: string; iconColor: string; title: string; desc: string }
-
-const rides: Service[] = [
-  {
-    icon: Plane,
-    iconBg: '#f6fef9',
-    iconColor: '#039855',
-    title: 'Airport Rides',
-    desc: 'Stress free pickup and drop-off services for all major airports.',
-  },
-  {
-    icon: Car,
-    iconBg: '#f5faff',
-    iconColor: '#1570ef',
-    title: 'Daily Ride',
-    desc: 'Affordable per-seat sharing for daily commuting across Nigeria.',
-  },
-  {
-    icon: Briefcase,
-    iconBg: '#fbfaff',
-    iconColor: '#7839ee',
-    title: 'Corporate Transport',
-    desc: 'Reliable staff movement managed through centralized dashboard.',
-  },
-]
-
-const cargo: Service[] = [
-  {
-    icon: Truck,
-    iconBg: '#fffbfa',
-    iconColor: '#d92d20',
-    title: 'Local Delivery',
-    desc: 'Secure pickup and delivery within cities and across states.',
-  },
-  {
-    icon: Ship,
-    iconBg: 'rgba(0,200,179,0.1)',
-    iconColor: '#00c8b3',
-    title: 'International Shipping',
-    desc: 'Global cargo solutions with customs clearance and insurance.',
-  },
-  {
-    icon: ShoppingBag,
-    iconBg: '#fffcf5',
-    iconColor: '#f79009',
-    title: 'Weshop4U',
-    desc: 'We buy items abroad, manage shipping, and deliver to your door.',
-  },
-]
+import { rideServices, cargoServices, type Service } from '../../lib/data/home'
 
 export default function Services() {
   return (
@@ -70,8 +20,8 @@ export default function Services() {
         </div>
 
         <div className="mt-12 flex flex-col gap-12">
-          <ServiceGroup heading="Ride Services" headingBg="#1570ef" items={rides} />
-          <ServiceGroup heading="Cargo Services" headingBg="#12b76a" items={cargo} />
+          <ServiceGroup heading="Ride Services" headingBg="#1570ef" items={rideServices} />
+          <ServiceGroup heading="Cargo Services" headingBg="#12b76a" items={cargoServices} />
         </div>
       </MaxContainer>
     </section>

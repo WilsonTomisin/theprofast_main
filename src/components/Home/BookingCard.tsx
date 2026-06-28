@@ -1,13 +1,7 @@
 import { Car, Navigation, MapPin, Calendar, ArrowRight } from 'lucide-react'
 import MaxContainer from '../layout/MaxContainer'
 import { CTAButton, TextField, SelectField } from '../form'
-
-const airports = [
-  { label: 'Murtala Muhammed, Lagos (LOS)', value: 'LOS' },
-  { label: 'Nnamdi Azikiwe, Abuja (ABV)', value: 'ABV' },
-  { label: 'Port Harcourt Intl (PHC)', value: 'PHC' },
-  { label: 'Mallam Aminu Kano (KAN)', value: 'KAN' },
-]
+import { airports } from '../../lib/data/airports'
 
 export default function BookingCard() {
   return (

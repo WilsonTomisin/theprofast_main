@@ -1,55 +1,7 @@
-import { Clock, ShieldCheck, Wallet, Headphones, MapPin, Zap } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import Badge from './Badge'
 import MaxContainer from '../layout/MaxContainer'
+import { whyChooseUsFeatures } from '../../lib/data/home'
 import whyImg from '../../assets/why-choose.png'
-
-type Feature = { icon: LucideIcon; iconBg: string; iconColor: string; title: string; desc: string }
-
-const features: Feature[] = [
-  {
-    icon: Clock,
-    iconBg: '#dbeafe',
-    iconColor: '#3b82f6',
-    title: 'On-Time Service',
-    desc: 'Reliable scheduling and real-time tracking ensure punctuality.',
-  },
-  {
-    icon: ShieldCheck,
-    iconBg: '#d1fae5',
-    iconColor: '#10b981',
-    title: 'Safe & Secure',
-    desc: 'Verified drivers and insured cargo for complete peace of mind.',
-  },
-  {
-    icon: Wallet,
-    iconBg: '#fef3c7',
-    iconColor: '#f59e0b',
-    title: 'Affordable Pricing',
-    desc: 'Transparent, competitive rates with no hidden fees.',
-  },
-  {
-    icon: Headphones,
-    iconBg: '#fce7f3',
-    iconColor: '#ec4899',
-    title: '24/7 Support',
-    desc: 'Round-the-clock customer service whenever you need us.',
-  },
-  {
-    icon: MapPin,
-    iconBg: '#ccfbf1',
-    iconColor: '#14b8a6',
-    title: 'Nationwide Coverage',
-    desc: 'From Lagos to Abuja and everywhere in between.',
-  },
-  {
-    icon: Zap,
-    iconBg: '#ede9fe',
-    iconColor: '#8b5cf6',
-    title: 'Fast Processing',
-    desc: 'Quick booking, instant matching, and efficient delivery.',
-  },
-]
 
 export default function WhyChooseUs() {
   return (
@@ -79,7 +31,7 @@ export default function WhyChooseUs() {
           </div>
 
           <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
-            {features.map(({ icon: Icon, iconBg, iconColor, title, desc }) => (
+            {whyChooseUsFeatures.map(({ icon: Icon, iconBg, iconColor, title, desc }) => (
               <div key={title} className="flex gap-4">
                 <span
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"

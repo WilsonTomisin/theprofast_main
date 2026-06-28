@@ -25,6 +25,7 @@ export const ROUTES = {
   // Booking flow
   AIRPORT: '/airport',
   CAR_RENTALS: '/car-rentals',
+  CAR_RENTALS_INTERSTATE: '/car-rentals/interstate',
   VEHICLE_SELECTION: '/vehicle-selection',
   CHECKOUT: '/checkout',
 

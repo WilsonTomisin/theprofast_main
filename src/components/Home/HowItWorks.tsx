@@ -1,51 +1,6 @@
-import { UserPlus, ListChecks, MapPin, Star } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import Badge from './Badge'
 import MaxContainer from '../layout/MaxContainer'
-
-type Step = {
-  n: string
-  color: string
-  iconBg: string
-  icon: LucideIcon
-  title: string
-  desc: string
-}
-
-const steps: Step[] = [
-  {
-    n: '01',
-    color: '#875bf7',
-    iconBg: '#fbfaff',
-    icon: UserPlus,
-    title: 'Create Account',
-    desc: 'Sign up in seconds using your phone number or email.',
-  },
-  {
-    n: '02',
-    color: '#2e90fa',
-    iconBg: '#f5faff',
-    icon: ListChecks,
-    title: 'Choose Service',
-    desc: 'Select between Ride or Cargo, and enter your details.',
-  },
-  {
-    n: '03',
-    color: '#fac515',
-    iconBg: '#fefdf0',
-    icon: MapPin,
-    title: 'Track in Real-Time',
-    desc: 'Monitor your ride or package with live GPS tracking.',
-  },
-  {
-    n: '04',
-    color: '#12b76a',
-    iconBg: '#f6fef9',
-    icon: Star,
-    title: 'Complete & Rate',
-    desc: 'Arrive safely or receive your cargo, then share feedback.',
-  },
-]
+import { howItWorksSteps } from '../../lib/data/home'
 
 export default function HowItWorks() {
   return (
@@ -65,7 +20,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map(({ n, color, iconBg, icon: Icon, title, desc }) => (
+          {howItWorksSteps.map(({ n, color, iconBg, icon: Icon, title, desc }) => (
             <div
               key={n}
               className="flex flex-col items-center gap-4 rounded-4xl bg-white px-6 py-8 text-center"
