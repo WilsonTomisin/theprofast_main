@@ -16,6 +16,15 @@ export default function AirportPage() {
   const isPickup = tab === 'pickup'
   const [security, setSecurity] = useState(false)
 
+  // Prefill from URL params (e.g. when arriving from the landing booking card).
+  const prefill = {
+    airport: params.get('airport') ?? undefined,
+    address: params.get('address') ?? undefined,
+    date: params.get('date') ?? undefined,
+    time: params.get('time') ?? undefined,
+    passengers: params.get('passengers') ?? undefined,
+  }
+
   const setTab = (next: Tab) => setParams({ tab: next })
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -70,12 +79,14 @@ export default function AirportPage() {
                   label="Airport Pick-up"
                   placeholder="Select Airport"
                   options={airports}
+                  defaultValue={prefill.airport}
                 />
                 <TextField
                   name="address"
                   icon={<MapPin className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                   label="Drop-off Address"
                   placeholder="Enter your destination address"
+                  defaultValue={prefill.address}
                 />
               </>
             ) : (
@@ -85,6 +96,7 @@ export default function AirportPage() {
                   icon={<MapPin className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                   label="Pick-up Address"
                   placeholder="Enter your pick-up address"
+                  defaultValue={prefill.address}
                 />
                 <SelectField
                   name="airport"
@@ -92,6 +104,7 @@ export default function AirportPage() {
                   label="Airport Drop-off"
                   placeholder="Select Airport"
                   options={airports}
+                  defaultValue={prefill.airport}
                 />
               </>
             )}
@@ -102,12 +115,14 @@ export default function AirportPage() {
                 icon={<Calendar className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                 label="Pickup Date"
                 type="date"
+                defaultValue={prefill.date}
               />
               <TextField
                 name="time"
                 icon={<Clock className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                 label="Pickup Time"
                 type="time"
+                defaultValue={prefill.time}
               />
             </div>
 
@@ -117,6 +132,7 @@ export default function AirportPage() {
               label="Number of Passengers"
               placeholder="Kindly state number of passenger and luggages"
               options={passengerOptions}
+              defaultValue={prefill.passengers}
             />
 
             {/* Security personnel toggle */}

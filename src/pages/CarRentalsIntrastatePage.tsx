@@ -19,6 +19,13 @@ export default function CarRentalsIntrastatePage() {
   const trip: IntrastateTrip = tripParam === 'round' || tripParam === 'fullday' ? tripParam : 'oneway'
   const [security, setSecurity] = useState(false)
 
+  // Prefill from URL params (e.g. when arriving from the landing booking card).
+  const prefill = {
+    location: params.get('location') ?? undefined,
+    address: params.get('address') ?? undefined,
+    date: params.get('date') ?? undefined,
+  }
+
   const showReturn = trip !== 'oneway'
   const setTrip = (next: IntrastateTrip) => setParams({ trip: next })
 
@@ -71,12 +78,14 @@ export default function CarRentalsIntrastatePage() {
               label="Pick-up Location"
               placeholder="Select Pick up location"
               options={carRentalLocations}
+              defaultValue={prefill.location}
             />
             <TextField
               name="address"
               icon={<MapPin className="h-5 w-5 text-ink" strokeWidth={1.5} />}
               label="Drop-off Address"
               placeholder="Enter your destination address"
+              defaultValue={prefill.address}
             />
 
             <div className="grid gap-5 sm:grid-cols-2">
@@ -85,6 +94,7 @@ export default function CarRentalsIntrastatePage() {
                 icon={<Calendar className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                 label="Pickup Date"
                 type="date"
+                defaultValue={prefill.date}
               />
               <TextField
                 name="time"

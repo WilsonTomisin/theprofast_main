@@ -14,6 +14,13 @@ export default function CarRentalsInterstatePage() {
   const trip: Trip = params.get('trip') === 'round' ? 'round' : 'oneway'
   const [security, setSecurity] = useState(false)
 
+  // Prefill from URL params (e.g. when arriving from the landing booking card).
+  const prefill = {
+    location: params.get('location') ?? undefined,
+    address: params.get('address') ?? undefined,
+    date: params.get('date') ?? undefined,
+  }
+
   const setTrip = (next: Trip) => setParams({ trip: next })
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -65,12 +72,14 @@ export default function CarRentalsInterstatePage() {
               label="Pick-up Location"
               placeholder="Select Pick up location"
               options={locations}
+              defaultValue={prefill.location}
             />
             <TextField
               name="address"
               icon={<MapPin className="h-5 w-5 text-ink" strokeWidth={1.5} />}
               label="Drop-off Address"
               placeholder="Enter your destination address"
+              defaultValue={prefill.address}
             />
 
             <div className="grid gap-5 sm:grid-cols-2">
@@ -79,6 +88,7 @@ export default function CarRentalsInterstatePage() {
                 icon={<Calendar className="h-5 w-5 text-ink" strokeWidth={1.5} />}
                 label="Pickup Date"
                 type="date"
+                defaultValue={prefill.date}
               />
               <TextField
                 name="time"

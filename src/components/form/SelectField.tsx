@@ -13,6 +13,8 @@ type SelectFieldProps = SelectHTMLAttributes<HTMLSelectElement> & {
   options: SelectOption[]
   /** Disabled, empty-value first option shown until the user picks. */
   placeholder?: string
+  /** Error message shown below the dropdown; also turns the border red. */
+  error?: string
   /** Classes for the wrapping element (e.g. "flex-1"). */
   containerClassName?: string
 }
@@ -23,17 +25,22 @@ export default function SelectField({
   icon,
   options,
   placeholder,
+  error,
   containerClassName = '',
   className = '',
   id,
   defaultValue,
+  value,
   ...rest
 }: SelectFieldProps) {
   const autoId = useId()
   const fieldId = id ?? autoId
+  // Controlled when `value` is passed, otherwise fall back to defaultValue/placeholder.
+  const valueProps =
+    value !== undefined ? { value } : { defaultValue: defaultValue ?? (placeholder ? '' : undefined) }
 
   return (
-    <div className={`flex flex-col gap-2 ${containerClassName}`}>
+    <div className={`flex flex-col gap-1.5 ${containerClassName}`}>
       <label htmlFor={fieldId} className="flex items-center gap-2 text-sm font-medium text-ink">
         {icon}
         {label}
@@ -41,8 +48,11 @@ export default function SelectField({
       <div className="relative">
         <select
           id={fieldId}
-          defaultValue={defaultValue ?? (placeholder ? '' : undefined)}
-          className={`h-11 w-full appearance-none rounded-lg border border-[#d5d7da] bg-white pl-3.5 pr-10 text-base text-ink focus:border-brand focus:outline-none ${className}`}
+          aria-invalid={error ? true : undefined}
+          {...valueProps}
+          className={`h-11 w-full appearance-none rounded-lg border bg-white pl-3.5 pr-10 text-base text-ink focus:outline-none ${
+            error ? 'border-red-400 focus:border-red-400' : 'border-[#d5d7da] focus:border-brand'
+          } ${className}`}
           {...rest}
         >
           {placeholder && (
@@ -61,6 +71,7 @@ export default function SelectField({
           strokeWidth={1.5}
         />
       </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   )
 }
