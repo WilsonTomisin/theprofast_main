@@ -1,6 +1,16 @@
 import { createBrowserRouter } from 'react-router'
 import { ROUTES } from './lib/types/Routes'
-import { Landing, Contact, FAQ, Airport, VehicleSelection, Checkout, CarRentalsInterstate } from './pages'
+import {
+  Landing,
+  Contact,
+  FAQ,
+  Airport,
+  VehicleSelection,
+  Checkout,
+  CarRentalsInterstate,
+  CarRentalsIntrastate,
+  NotFound,
+} from './pages'
 import MainLayout from './layout/Main'
 
 export const router = createBrowserRouter([
@@ -32,6 +42,14 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.CAR_RENTALS_INTERSTATE,
         Component: CarRentalsInterstate,
+      },
+      {
+        path: ROUTES.CAR_RENTALS,
+        Component: CarRentalsIntrastate,
+      },
+      {
+        path: ROUTES.NOT_FOUND,
+        Component: NotFound,
       },
     ],
   },

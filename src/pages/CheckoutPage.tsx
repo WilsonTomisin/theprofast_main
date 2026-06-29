@@ -50,8 +50,8 @@ export default function CheckoutPage() {
       <PageHero
         centered
         tall
-        title="Airport Rides"
-        subtitle="Seamless pickup and drop-off services for all major airports."
+        title="Checkout"
+        subtitle="Review your booking details and confirm your trip."
         backTo={editHref}
         backLabel="Back to Vehicle Selection"
       />
