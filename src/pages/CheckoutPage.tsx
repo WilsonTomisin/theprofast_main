@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
-import { Phone, User, Mail, Navigation, MapPin, Calendar, Clock, Car, ShieldCheck, Pencil } from 'lucide-react'
+import {
+  Phone,
+  User,
+  Mail,
+  Navigation,
+  MapPin,
+  Calendar,
+  Clock,
+  Car,
+  ShieldCheck,
+  Pencil,
+} from 'lucide-react'
 import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton, TextField } from '../components/form'
 import SuccessModal from '../components/ui/SuccessModal'
 import { ROUTES } from '../lib/types/Routes'
-import { isEmail, formatDate, naira, getVehicle, airportLabel } from '../lib/functions'
+import { isEmail, formatDate, naira, getVehicle, airportLabel } from '../utils/functions'
 import { SECURITY_PRICE } from '../lib/data/vehicles'
 
 type FieldKey = 'phone' | 'name' | 'email'
@@ -18,11 +29,16 @@ export default function CheckoutPage() {
   const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [touched, setTouched] = useState<Record<FieldKey, boolean>>({ phone: false, name: false, email: false })
+  const [touched, setTouched] = useState<Record<FieldKey, boolean>>({
+    phone: false,
+    name: false,
+    email: false,
+  })
   const [success, setSuccess] = useState(false)
 
   const tab = params.get('tab') === 'dropoff' ? 'dropoff' : 'pickup'
-  const airport = airportLabel(params.get('airport')) || 'Murtala Muhammed International Airport (Lagos)'
+  const airport =
+    airportLabel(params.get('airport')) || 'Murtala Muhammed International Airport (Lagos)'
   const address = params.get('address') || 'New gra Ikeja'
   const date = params.get('date') || ''
   const time = params.get('time') || ''
@@ -37,7 +53,12 @@ export default function CheckoutPage() {
   const errors: Record<FieldKey, string | undefined> = {
     phone: phone.trim() === '' ? 'Phone number is required' : undefined,
     name: name.trim() === '' ? 'Name is required' : undefined,
-    email: email.trim() === '' ? 'Email is required' : !isEmail(email) ? 'The email address is not correct' : undefined,
+    email:
+      email.trim() === ''
+        ? 'Email is required'
+        : !isEmail(email)
+          ? 'The email address is not correct'
+          : undefined,
   }
   const errorFor = (key: FieldKey) => (touched[key] ? errors[key] : undefined)
   const markTouched = (key: FieldKey) => setTouched(t => ({ ...t, [key]: true }))
@@ -112,19 +133,45 @@ export default function CheckoutPage() {
               <Row label="Service" value="Airport Rides" />
 
               <div className="grid grid-cols-2 gap-4">
-                <Detail icon={<Navigation className="h-4 w-4 text-brand" strokeWidth={1.6} />} label="Pick-up" value={origin} />
-                <Detail icon={<MapPin className="h-4 w-4 text-brand" strokeWidth={1.6} />} label="Drop-off" value={destination} />
+                <Detail
+                  icon={<Navigation className="h-4 w-4 text-brand" strokeWidth={1.6} />}
+                  label="Pick-up"
+                  value={origin}
+                />
+                <Detail
+                  icon={<MapPin className="h-4 w-4 text-brand" strokeWidth={1.6} />}
+                  label="Drop-off"
+                  value={destination}
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Detail icon={<Calendar className="h-4 w-4 text-muted" strokeWidth={1.6} />} label="Pick-up Date" value={formatDate(date)} />
-                <Detail icon={<Clock className="h-4 w-4 text-muted" strokeWidth={1.6} />} label="Pick-up Time" value={time || '—'} />
+                <Detail
+                  icon={<Calendar className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+                  label="Pick-up Date"
+                  value={formatDate(date)}
+                />
+                <Detail
+                  icon={<Clock className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+                  label="Pick-up Time"
+                  value={time || '—'}
+                />
               </div>
 
               <hr className="border-line/70" />
 
-              <LineItem icon={<Car className="h-4 w-4 text-muted" strokeWidth={1.6} />} label="Vehicle" value={vehicle.name} price={naira(vehicle.price)} />
+              <LineItem
+                icon={<Car className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+                label="Vehicle"
+                value={vehicle.name}
+                price={naira(vehicle.price)}
+              />
               {hasSecurity && (
-                <LineItem icon={<ShieldCheck className="h-4 w-4 text-muted" strokeWidth={1.6} />} label="Security" value="Security Personnel" price={naira(SECURITY_PRICE)} />
+                <LineItem
+                  icon={<ShieldCheck className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+                  label="Security"
+                  value="Security Personnel"
+                  price={naira(SECURITY_PRICE)}
+                />
               )}
 
               <hr className="border-line/70" />
@@ -164,10 +211,16 @@ export default function CheckoutPage() {
           <>
             <p className="text-sm text-muted">Need help? Contact our support team</p>
             <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
-              <a href="tel:+2341234567890" className="inline-flex items-center gap-1.5 text-body hover:text-brand">
+              <a
+                href="tel:+2341234567890"
+                className="inline-flex items-center gap-1.5 text-body hover:text-brand"
+              >
                 <Phone className="h-4 w-4" strokeWidth={1.6} /> +234 123 456 7890
               </a>
-              <a href="mailto:support@theprofast.com" className="inline-flex items-center gap-1.5 text-body hover:text-brand">
+              <a
+                href="mailto:support@theprofast.com"
+                className="inline-flex items-center gap-1.5 text-body hover:text-brand"
+              >
                 <Mail className="h-4 w-4" strokeWidth={1.6} /> support@theprofast.com
               </a>
             </div>
@@ -179,7 +232,9 @@ export default function CheckoutPage() {
             <Mail className="mt-0.5 h-5 w-5 shrink-0 text-green-600" strokeWidth={1.6} />
             <div>
               <p className="text-sm font-semibold text-ink">Confirmation Email</p>
-              <p className="text-sm text-body">A confirmation email has been sent to {email || 'your email'}</p>
+              <p className="text-sm text-body">
+                A confirmation email has been sent to {email || 'your email'}
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-3 rounded-xl border border-line/60 p-3">
@@ -233,7 +288,17 @@ function Detail({ icon, label, value }: { icon: ReactNode; label: string; value:
   )
 }
 
-function LineItem({ icon, label, value, price }: { icon: ReactNode; label: string; value: string; price: string }) {
+function LineItem({
+  icon,
+  label,
+  value,
+  price,
+}: {
+  icon: ReactNode
+  label: string
+  value: string
+  price: string
+}) {
   return (
     <div className="flex items-start justify-between gap-4">
       <div className="flex flex-col gap-1">

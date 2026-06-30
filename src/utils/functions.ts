@@ -1,5 +1,5 @@
-import { airports } from './data/airports'
-import { vehicles, type Vehicle } from './data/vehicles'
+import { airports } from '../lib/data/airports'
+import { vehicles, type Vehicle } from '../lib/data/vehicles'
 
 /** Validate an email address format. */
 export const isEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -9,7 +9,12 @@ export function formatDate(value: string): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
-  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
 }
 
 /** Format a number as Naira, e.g. "₦ 100,000". */

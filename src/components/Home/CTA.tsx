@@ -12,7 +12,7 @@ export default function CTA() {
           src={ctaRoads}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 h-full w-auto select-none object-cover object-right"
+          className=" hidden md:inline-block pointer-events-none absolute inset-y-0 right-0 h-full w-auto select-none object-cover object-right"
         />
 
         <div className="relative max-w-130">

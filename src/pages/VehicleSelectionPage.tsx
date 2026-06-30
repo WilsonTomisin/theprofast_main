@@ -4,8 +4,13 @@ import { MapPin, Navigation, Users, Calendar, Clock, Star, Pencil, ArrowRight } 
 import { PageHero, MaxContainer } from '../components/layout'
 import { CTAButton } from '../components/form'
 import { ROUTES } from '../lib/types/Routes'
-import { airportLabel, naira } from '../lib/functions'
-import { vehicles, vehicleFilters, vehicleBadgeStyles, type VehicleType } from '../lib/data/vehicles'
+import { airportLabel, naira } from '../utils/functions'
+import {
+  vehicles,
+  vehicleFilters,
+  vehicleBadgeStyles,
+  type VehicleType,
+} from '../lib/data/vehicles'
 
 export default function VehicleSelectionPage() {
   const [params] = useSearchParams()
@@ -13,7 +18,8 @@ export default function VehicleSelectionPage() {
   const [filter, setFilter] = useState<'All' | VehicleType>('All')
 
   const tab = params.get('tab') === 'dropoff' ? 'dropoff' : 'pickup'
-  const airport = airportLabel(params.get('airport')) || 'Murtala Muhammed International Airport (Lagos)'
+  const airport =
+    airportLabel(params.get('airport')) || 'Murtala Muhammed International Airport (Lagos)'
   const address = params.get('address') || 'New gra Ikeja'
   const passengers = params.get('passengers') || '2'
   const date = params.get('date') || '15-04-2025'
@@ -42,13 +48,28 @@ export default function VehicleSelectionPage() {
       {/* Trip summary bar */}
       <section className="relative z-10 px-4 md:px-20">
         <MaxContainer className="-mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-line/60 bg-white px-5 py-4 text-sm shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]">
-          <SummaryItem icon={<Navigation className="h-4 w-4 text-brand" strokeWidth={1.6} />} text={origin} />
+          <SummaryItem
+            icon={<Navigation className="h-4 w-4 text-brand" strokeWidth={1.6} />}
+            text={origin}
+          />
           <ArrowRight className="hidden h-4 w-4 text-muted sm:block" strokeWidth={1.6} />
-          <SummaryItem icon={<MapPin className="h-4 w-4 text-brand" strokeWidth={1.6} />} text={destination} />
+          <SummaryItem
+            icon={<MapPin className="h-4 w-4 text-brand" strokeWidth={1.6} />}
+            text={destination}
+          />
           <span className="hidden h-5 w-px bg-line md:block" />
-          <SummaryItem icon={<Users className="h-4 w-4 text-muted" strokeWidth={1.6} />} text={`No. of Passengers : ${passengers}`} />
-          <SummaryItem icon={<Calendar className="h-4 w-4 text-muted" strokeWidth={1.6} />} text={date} />
-          <SummaryItem icon={<Clock className="h-4 w-4 text-muted" strokeWidth={1.6} />} text={time} />
+          <SummaryItem
+            icon={<Users className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+            text={`No. of Passengers : ${passengers}`}
+          />
+          <SummaryItem
+            icon={<Calendar className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+            text={date}
+          />
+          <SummaryItem
+            icon={<Clock className="h-4 w-4 text-muted" strokeWidth={1.6} />}
+            text={time}
+          />
           <Link
             to={`${ROUTES.AIRPORT}?tab=${tab}`}
             className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-brand px-3 py-1.5 text-sm font-medium text-brand transition hover:bg-brand-soft"
@@ -71,7 +92,10 @@ export default function VehicleSelectionPage() {
                 <h3 className="text-sm font-bold text-ink">Filter By Vehicle Type</h3>
                 <div className="mt-4 flex flex-col gap-1">
                   {vehicleFilters.map(f => (
-                    <label key={f} className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 hover:bg-line/10">
+                    <label
+                      key={f}
+                      className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 hover:bg-line/10"
+                    >
                       <input
                         type="radio"
                         name="vehicle-filter"
@@ -79,7 +103,11 @@ export default function VehicleSelectionPage() {
                         onChange={() => setFilter(f)}
                         className="h-4 w-4 accent-brand"
                       />
-                      <span className={`text-base ${filter === f ? 'font-medium text-ink' : 'text-body'}`}>{f}</span>
+                      <span
+                        className={`text-base ${filter === f ? 'font-medium text-ink' : 'text-body'}`}
+                      >
+                        {f}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -103,7 +131,10 @@ export default function VehicleSelectionPage() {
                     <p className="text-sm text-body">{v.specs}</p>
                     <div className="flex flex-wrap gap-2">
                       {v.badges.map(badge => (
-                        <span key={badge} className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${vehicleBadgeStyles[badge]}`}>
+                        <span
+                          key={badge}
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${vehicleBadgeStyles[badge]}`}
+                        >
                           {badge === 'Most Popular' && <Star className="h-3 w-3" strokeWidth={2} />}
                           {badge}
                         </span>
